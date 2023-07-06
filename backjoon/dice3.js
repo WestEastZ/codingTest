@@ -15,3 +15,18 @@ if (a === b && a === c) {
 } else {
   console.log(Math.max(a, b, c) * 100);
 }
+
+
+function dice(a, b, c) {
+  if (a === b && a === c) {
+    return 10000 + a * 1000;
+  } else if (a === b || a === c) {
+    return 1000 + a * 100;
+  } else if (b === c) {
+    return 1000 + b * 100;
+  } else {
+    return Math.max(a, b, c) * 100;
+  }
+}
+
+dice()l;
