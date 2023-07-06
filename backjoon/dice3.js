@@ -1,3 +1,4 @@
+// nodeJS 이용
 let [a, b, c] = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
@@ -16,7 +17,7 @@ if (a === b && a === c) {
   console.log(Math.max(a, b, c) * 100);
 }
 
-
+// function 이용
 function dice(a, b, c) {
   if (a === b && a === c) {
     return 10000 + a * 1000;
@@ -29,4 +30,5 @@ function dice(a, b, c) {
   }
 }
 
-dice()l;
+// 값 입력
+dice();
