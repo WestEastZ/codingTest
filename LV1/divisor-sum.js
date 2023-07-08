@@ -1,13 +1,11 @@
 function solution(n) {
-  var answer = 0;
-
+  let answer = 0;
   for (let i = 0; i <= n; i++) {
-    if (i % 2 === 0) {
+    if (n % i == 0) {
       answer += i;
     }
   }
-
   return answer;
 }
 
-// 짝수의 합 구하기
+//  약수의 합 구하기

@@ -22,3 +22,5 @@ function solution(angle) {
     ? 3
     : 4;
 }
+
+// 각도기
