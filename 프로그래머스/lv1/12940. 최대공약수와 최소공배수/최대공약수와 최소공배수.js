@@ -4,7 +4,7 @@ function solution(n, m) {
     
     let gcd;
     
-    for(let i = 0; i<=minnum; i++ ){
+    for(let i = 1; i<=minnum; i++ ){
         if(n%i == 0 && m%i == 0)
             gcd = i
 }
