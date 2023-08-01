@@ -10,11 +10,12 @@ function solution(s) {
         answer += arr[i][j].toLowerCase();
       }
     }
-    if (i < arr.length-1) {
+    
+       if (i < arr.length - 1) {
       answer += " ";
     }
+
   }
   return answer;
 }
-
  
