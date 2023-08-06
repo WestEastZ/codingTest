@@ -13,7 +13,7 @@ function solution(n, arr1, arr2) {
     sec.push(arr2Bin);
   }
 
-    // 1, 0 비교하여 str에 dlqfur
+    // 1, 0 비교하여 str에 입력
   for (let i = 0; i < n; i++) {
     let str = "";
     for (let j = 0; j < n; j++) {
@@ -23,6 +23,7 @@ function solution(n, arr1, arr2) {
         str += "0";
       }
     }
+     // # , " "으로 변환
     let toHash = str.replaceAll(1, "#");
     let toSpasce = toHash.replaceAll(0, " ");
 
