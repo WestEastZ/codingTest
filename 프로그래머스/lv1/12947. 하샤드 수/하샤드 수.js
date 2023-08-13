@@ -1,11 +1,13 @@
 function solution(x) {
-  let toNum = (e) => parseInt(e);
-  let arr = x.toString().split("").map(toNum);
-  let sum = 0
- 
-    for(let i=0; i<arr.length; i++) {
-    sum += arr[i]
+  let sum = 0;
+  const tosplit = x
+    .toString()
+    .split("")
+    .map((item) => parseInt(item));
+
+  for (let i = 0; i < tosplit.length; i++) {
+    sum += tosplit[i];
+  }
+
+  return x % sum === 0 ? true : false;
 }
-   return x%sum === 0 ? true : false
-    
-}    
