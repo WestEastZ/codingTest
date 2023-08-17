@@ -5,8 +5,6 @@ function solution(n) {
     .map((v) => parseInt(v))
     .reduce((acc, cur) => acc + cur, 0);
 
-  // .reduce((acc, cur) => acc+cur)
-
   //     let answer = 0;
   //     n = n.toString()
 
