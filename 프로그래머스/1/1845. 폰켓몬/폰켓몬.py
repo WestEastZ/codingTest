@@ -1,12 +1,20 @@
 def solution(nums):
-    from collections import Counter
-    s = Counter(nums)
+    # from collections import Counter
+    # s = Counter(nums)
+    
+    dict = {}
     answer = 0
     
-    if len(s) >= len(nums)/2:
+    for num in nums:
+        if dict.get(num):
+            dict[num] += 1
+        else:
+            dict[num] = 1   
+    
+    if len(dict) >= len(nums)/2:
         answer = len(nums)/2
     else:
-        answer = len(s)
+        answer = len(dict)
         
     return answer
     
