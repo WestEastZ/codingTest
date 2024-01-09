@@ -7,8 +7,6 @@ heapq.heapify(cards)
 answer = 0
 
 for i in range(M):
-    if len(cards) < 2:
-        break
 
     min_card1 = heapq.heappop(cards)
     min_card2 = heapq.heappop(cards)
