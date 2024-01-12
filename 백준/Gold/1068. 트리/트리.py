@@ -17,12 +17,12 @@ for index, value in enumerate(m):
     else:
         root = index # 루트 노드 0
 
-def delete_node(x):
-    for node in _dict[x]:
-        delete_node(node)
-    del _dict[x]
-
-delete_node(delete)
+# def delete_node(x):
+#     for node in _dict[x]:
+#         delete_node(node)
+#     del _dict[x]
+# 
+# delete_node(delete)
 
 # 연결 해제
 for key in _dict.keys():
