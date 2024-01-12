@@ -17,19 +17,12 @@ for index, value in enumerate(m):
     else:
         root = index # 루트 노드 0
 
-# def delete_node(x):
-#     for node in _dict[x]:
-#         delete_node(node)
-#     del _dict[x]
-# 
-# delete_node(delete)
-
 # 연결 해제
 for key in _dict.keys():
     if delete in _dict[key]:
         _dict[key].remove(delete)
 
-
+# 삭제 노드가 루트 노드면 0 출력 후 끝
 if delete == root:
     print(count)
 else:
@@ -45,7 +38,4 @@ else:
 
     DFS(root)
     print(count)
-
-# print(n, m, delete)
-# print(_dict)
 
