@@ -1,90 +1,107 @@
 import sys
 
-input = sys.stdin.readline
+R, C, T = map(int, sys.stdin.readline().split())
+board = [list(map(int, sys.stdin.readline().split())) for _ in range(R)]
+answer = 0
 
-r, c, t = map(int, input().split())
+cleaner_up = [] # 2, 0
+cleaner_down = [] # 3, 0
 
-arr = [list(map(int, input().split())) for _ in range(r)]
-
-up = -1
-down = -1
-# 공기 청정기 위치 찾기
-for i in range(r):
-    if arr[i][0] == -1:
-        up = i
-        down = i + 1
+# 공기 청정기 위치
+for i in range(R):
+    if board[i][0] == -1:
+        cleaner_up.append((i, 0))
+        cleaner_down.append((i + 1, 0))
         break
 
-# 미세먼지 확산
-def spread():
-    dx = [-1, 0, 0, 1]
-    dy = [0, -1, 1, 0]
+# 확산
+def diffusion():
+    dx = [0, 0, 1, -1]
+    dy = [1, -1, 0, 0]
 
-    tmp_arr = [[0] * c for _ in range(r)]
-    for i in range(r):
-        for j in range(c):
-            if arr[i][j] != 0 and arr[i][j] != -1:
-                tmp = 0
+    # 값을 저장할 용도
+    new_board = [[0] * C for _ in range(R)]
+
+    for i in range(R):
+        for j in range(C):
+            if board[i][j] != 0 and board[i][j] != -1:
+                # 확산된 방향의 개수
+                count = 0
+
+                # 4방향 확인
                 for k in range(4):
                     nx = dx[k] + i
                     ny = dy[k] + j
-                    if 0 <= nx < r and 0 <= ny < c and arr[nx][ny] != -1:
-                        tmp_arr[nx][ny] += arr[i][j] // 5
-                        tmp += arr[i][j] // 5
-                arr[i][j] -= tmp
+                    if 0 <= nx < R and 0 <= ny < C and board[nx][ny] != -1:
+                        count += 1
+                        new_board[nx][ny] += board[i][j] // 5 # 인접 방향 확산
+                board[i][j] = board[i][j] - (board[i][j] // 5 * count) # 남은 미세 먼지
 
-    for i in range(r):
-        for j in range(c):
-            arr[i][j] += tmp_arr[i][j]
-
-# 공기청정기 위쪽 이동
-def air_up():
+    # 확산 결과
+    for i in range(R):
+        for j in range(C):
+            board[i][j] += new_board[i][j]
+def clean_up():
+    # 동 -> 북 -> 서 -> 남
     dx = [0, -1, 0, 1]
     dy = [1, 0, -1, 0]
-    direct = 0
-    before = 0
-    x, y = up, 1
-    while True:
-        nx = x + dx[direct]
-        ny = y + dy[direct]
-        if x == up and y == 0:
-            break
-        if nx < 0 or nx >= r or ny < 0 or ny >= c:
-            direct += 1
-            continue
-        arr[x][y], before = before, arr[x][y]
-        x = nx
-        y = ny
+    direction = 0 # 방향
+    prev = 0 # 이전 값 저장할 용도
+    start_x, start_y = cleaner_up[0][0], 1 # 시작 위치
 
-# 공기청정기 아래쪽 이동
-def air_down():
+    while True:
+        nx = dx[direction] + start_x
+        ny = dy[direction] + start_y
+
+        # 공기 청정기 까지 돌면 끝
+        if start_x == cleaner_up[0][0] and start_y == 0:
+            break
+
+        # 범위를 넘어가면 방향 바꾸기 동 -> 북 -> 서 -> 남
+        if 0 > nx or nx >= R or 0 > ny or ny >= C:
+            direction += 1
+            continue
+
+        # 이전 값과 현재 값을 바꾼다.
+        prev, board[start_x][start_y] = board[start_x][start_y], prev
+        # 현재 위치 이동
+        start_x, start_y = nx, ny
+    return
+
+
+def clean_down():
+    # 동 -> 남 -> 서 -> 북
     dx = [0, 1, 0, -1]
     dy = [1, 0, -1, 0]
-    direct = 0
-    before = 0
-    x, y = down, 1
+    direction = 0
+    prev = 0
+    start_x, start_y = cleaner_down[0][0], 1
+
     while True:
-        nx = x + dx[direct]
-        ny = y + dy[direct]
-        if x == down and y == 0:
+        nx = dx[direction] + start_x
+        ny = dy[direction] + start_y
+
+        # 공기 청정기
+        if start_x == cleaner_down[0][0] and start_y == 0:
             break
-        if nx < 0 or nx >= r or ny < 0 or ny >= c:
-            direct += 1
+
+        if 0 > nx or nx >= R or 0 > ny or ny >= C:
+            direction += 1
             continue
-        arr[x][y], before = before, arr[x][y]
-        x = nx
-        y = ny
 
+        prev, board[start_x][start_y] = board[start_x][start_y], prev
+        start_x, start_y = nx, ny
+    return
 
-for _ in range(t):
-    spread()
-    air_up()
-    air_down()
+# T초 후
+for _ in range(T):
+    diffusion()
+    clean_up()
+    clean_down()
 
-answer = 0
-for i in range(r):
-    for j in range(c):
-        if arr[i][j] > 0:
-            answer += arr[i][j]
+for i in range(R):
+    for j in range(C):
+        if board[i][j] > 0:
+            answer += board[i][j]
 
 print(answer)
