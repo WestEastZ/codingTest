@@ -1,22 +1,19 @@
 def solution(s):
-    
+    arr = []
     open = "("
     close = ")"
-    stack = []
     
     
-    for item in s:
-        if item == open:
-            stack.append(item)
-        else:
-            if stack:
-                stack.pop()
-            else:
+    for val in s:
+        if val == open:
+            arr.append(val)
+        elif val == close:
+            if len(arr) == 0:
                 return False
-    
-    if stack:
+            else: 
+                arr.pop()    
+            
+    if len(arr) != 0:
         return False
     else:
         return True
-    
-    
