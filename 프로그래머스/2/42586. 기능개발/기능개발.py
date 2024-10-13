@@ -1,29 +1,20 @@
-from collections import deque
+import math
+
 def solution(progresses, speeds):
-    
+    days = []
+
+    for progress, speed in zip(progresses, speeds):
+        day = math.ceil((100 - progress) / speed)
+        days.append(day)
+        
+    max_day = 0
     answer = []
-    qu = deque()
     
-    
-    for task, speed in zip(progresses, speeds):
-        task_count = 0
-        
-        while task < 100:
-            task += speed
-            task_count += 1
+    for day in days:
+        if not answer or max_day < day:
+            answer.append(1)
+            max_day = day
+        else:
+            answer[-1] += 1
             
-        qu.append(task_count)
-    
-    while qu:
-        count = 1
-        day = qu.popleft()
-        
-        while qu and day >= qu[0]:
-            qu.popleft()
-            count += 1
-        answer.append(count)
-    
     return answer
-        
-        
-        
