@@ -1,17 +1,9 @@
 def solution(arr):
+    answer = [arr[0]]
     
-    stack = []
+    for i in arr:
+        if answer[-1] != i:
+            answer.append(i)
     
-    for index, num in enumerate(arr):
-        if index == 0:
-            stack.append(num)
-            
-        elif stack[-1] != num:
-            stack.append(num)
-            
-            
-    return stack
-            
-    
-            
+    return answer
     
